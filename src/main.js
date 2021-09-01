@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
 import { OrbitControls } from "three/examples/jsm/controls/orbitcontrols";
 
-import "./style.css"; 
+import "./style.css";
 
 
 let camera, scene, renderer;
@@ -103,14 +103,9 @@ function onMouseDown(event) {
       })
       .start()
       .onComplete(function () {
-        new TWEEN.Tween(pointer).to(pointer, 500)
-          .easing(TWEEN.Easing.Cubic.Out)
-          .onUpdate(function () {
-            outRingMesh.material.visible = false;
-            outRingMesh.material.opacity = 1;
-            outRingMesh.scale.set(1, 1, 1);
-          })
-          .start();
+        outRingMesh.material.visible = false;
+        outRingMesh.material.opacity = 1;
+        outRingMesh.scale.set(1, 1, 1);
       });
   }
 }
