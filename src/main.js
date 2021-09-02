@@ -52,15 +52,15 @@ function init() {
   function onPointerMove(event) {
 
     pointerPosition.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
-  
+
     raycaster.setFromCamera(pointerPosition, camera);
-  
+
     const intersects = raycaster.intersectObjects(objects);
-  
+
     if (intersects.length > 0) {
-  
+
       const intersect = intersects[0];
-  
+
       pointer.position.copy(intersect.point).add(intersect.face.normal);
       pointer.position.divideScalar(5).floor().multiplyScalar(5).addScalar(3);
     }
@@ -69,13 +69,13 @@ function init() {
   function onMouseDown(event) {
 
     pointerPosition.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
-  
+
     raycaster.setFromCamera(pointerPosition, camera);
-  
+
     const intersects = raycaster.intersectObjects(objects);
-  
+
     if (intersects.length > 0) {
-  
+
       poniterAnimation(pointer, 1, 2, 0, 1, 500);
     }
   }
@@ -109,7 +109,7 @@ function creatPointer(radius, boderWidth, backgroundColor, borderColor, backgrou
   outLineGeo.rotateX(- Math.PI / 2);
 
   // creat a ring that shown when mousedown
-  const outRingGeo = new THREE.RingGeometry((radius + boderWidth), radius, radius );
+  const outRingGeo = new THREE.RingGeometry((radius + boderWidth), radius, radius);
   const outRingMaterial = new THREE.MeshBasicMaterial({ color: borderColor, side: THREE.BackSide, transparent: true });
   const outRingMesh = new THREE.Mesh(outRingGeo, outRingMaterial);
   outRingGeo.rotateX(- Math.PI / 2);
@@ -123,7 +123,7 @@ function creatPointer(radius, boderWidth, backgroundColor, borderColor, backgrou
 }
 
 function poniterAnimation(pointer, minScale, maxScale, minOpacity, maxOpacity, duration) {
-    
+
   new TWEEN.Tween({ op: maxOpacity, sc: minScale }).to({ op: minOpacity, sc: maxScale }, duration)
     .easing(TWEEN.Easing.Cubic.Out)
     .onUpdate(function (currentState) {
