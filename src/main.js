@@ -43,7 +43,7 @@ function init() {
 
   // creat a ring that shown when mousedown
   const outRingGeo = new THREE.RingGeometry(55, 50, 50);
-  const outRingMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide, transparent: true, visible: false });
+  const outRingMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide, transparent: true });
   outRingMesh = new THREE.Mesh(outRingGeo, outRingMaterial);
   outRingGeo.rotateX(- Math.PI / 2);
 
@@ -94,19 +94,13 @@ function onMouseDown(event) {
 
     const intersect = intersects[0];
 
-    new TWEEN.Tween(pointer).to(pointer, 500)
+    new TWEEN.Tween({op: 1, sc: 1}).to({op: 0, sc: 2}, 500)
       .easing(TWEEN.Easing.Cubic.Out)
-      .onUpdate(function () {
-        outRingMesh.material.visible = true;
-        outRingMesh.scale.multiplyScalar(1.02);
-        outRingMesh.material.opacity -= 0.04;
+      .onUpdate(function (currentState) {
+        outRingMesh.scale.set(currentState.sc, currentState.sc, currentState.sc);
+        outRingMesh.material.opacity = currentState.op;
       })
       .start()
-      .onComplete(function () {
-        outRingMesh.material.visible = false;
-        outRingMesh.material.opacity = 1;
-        outRingMesh.scale.set(1, 1, 1);
-      });
   }
 }
 
