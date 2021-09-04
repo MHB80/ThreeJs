@@ -3,6 +3,7 @@ import { TWEEN } from "three/examples/jsm/libs/tween.module.min";
 import { OrbitControls } from "three/examples/jsm/controls/orbitcontrols";
 
 import "./style.css";
+import { Camera, MOUSE } from "three";
 
 let camera, scene, renderer;
 const objects = [];
@@ -65,11 +66,12 @@ function init() {
       pointer.position.divideScalar(5).floor().multiplyScalar(5).addScalar(3);
     }
   }
-
+  //cameraposition 
+  
   function onMouseDown(event) {
 
     pointerPosition.set((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1);
-
+    
     raycaster.setFromCamera(pointerPosition, camera);
 
     const intersects = raycaster.intersectObjects(objects);
@@ -77,9 +79,15 @@ function init() {
     if (intersects.length > 0) {
 
       poniterAnimation(pointer, 1, 2, 0, 1, 500);
-    }
-  }
 
+    }
+    
+    //moving the camera to the clicked location
+    
+    camera.position.set((camera.position.x + pointer.position.x)/2,(camera.position.y + pointer.position.y)/2 ,(camera.position.y + pointer.position.y)/2)
+
+  }
+  
 }
 
 function onWindowResize() {
