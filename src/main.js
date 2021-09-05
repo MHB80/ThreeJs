@@ -82,10 +82,12 @@ function init() {
 
     }
     
-    //moving the camera to the clicked location
+    //moving the camera to the clicked location 
+    let second_camera_X = pointer.position.x
+    let second_camera_Y = pointer.position.y
+  
+    cameraanimation(second_camera_X,second_camera_Y)
     
-    camera.position.set((camera.position.x + pointer.position.x)/2,(camera.position.y + pointer.position.y)/2 ,(camera.position.y + pointer.position.y)/2)
-
   }
   
 }
@@ -139,6 +141,18 @@ function poniterAnimation(pointer, minScale, maxScale, minOpacity, maxOpacity, d
       pointer.children[2].material.opacity = currentState.op;
     })
     .start()
+}
+
+//animation for moving the camera
+
+function cameraanimation(second_camera_X,second_camera_Y)
+{
+  new TWEEN.Tween({x:camera.position.x ,y:camera.position.y }).to({x:second_camera_X ,y:second_camera_Y } ,10000 ).onUpdate((movingstate)=>{
+    
+    camera.position.set(- movingstate.x, -movingstate.y,5)
+  
+  }).easing(TWEEN.Easing.Cubic.Out).start()
+ 
 }
 
 function animate() {
